@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <header class="header-content">
+    <header class="header-content flex">
         <div class="high-scores">View High Scores</div>
         <!-- <div class="title">Coding Quiz Challenge</div> -->
         <div class="timer-wrap">
@@ -25,21 +25,21 @@
     </header>
 
     <!-- info box -->
-    <div class="info-box flex">
+    <div id="info-box" class="flex">
         <div class="info-title"><span>Coding Quiz Challenge</span></div>
         <div class="info-content">
             <div class="info">
                 Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+
+                <!-- start quiz button -->
+                <div class="start-btn flex"><button class="btn">Start Quiz!</button></div>
             </div>
         </div>
     </div>
 
-    <!-- start quiz button -->
-    <div class="start-btn flex"><button>Start Quiz!</button></div>
-
     <!-- quiz box -->
-    <div class="quiz-container flex">
-        <div id="question-container" class="hide">
+    <div id="quiz-container" class="flex">
+        <div class="question-container" class="hide">
             <div id="question">Question</div>
             <div id="answer-buttons" class="btn-grid">
                 <button class="btn">Answer 1</button>

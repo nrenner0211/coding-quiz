@@ -1,16 +1,19 @@
+// dom reference
+console.dir(window.document);
+
 // global variables
 var startBtn = document.querySelector(".start-btn");
+var infoContainer = document.querySelector("#info-box");
+var 
 var timer = document.querySelector(".timer");
 var timeLeft = document.querySelector(".time-left");
 var timeSec = document.querySelector(".time-sec");
 
+startBtn.addEventListener('click', startGame);
 
-// dom reference
-console.dir(window.document);
-
-startBtn.addEventListener("click", function (event) {
-
-})
+function startGame() {
+    infoContainer.classList.add("hide")
+}
 
 // // start timer event listener
 // startBtn.addEventListener("click", function (event) {
