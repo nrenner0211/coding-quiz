@@ -5,14 +5,27 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Coding Quiz</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/assets/css/style.css'>
-    <script src='/assets/js/script.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='./assets/css/style.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">   
 </head>
 <body>
-    <!-- start quiz button -->
-    <div class="start-btn"><button>Start Quiz!</button></div>
 
-    <div class="info-box">
+    <header class="header-content">
+        <div class="high-scores">View High Scores</div>
+        <!-- <div class="title">Coding Quiz Challenge</div> -->
+        <div class="timer-wrap">
+            <div class="time-left">Time Left:</div>
+            <div class="timer">
+                <div class="timer-sec">15</div>
+                <div class="time-line"></div>
+            </div>
+        </div>    
+    </header>
+
+    <!-- info box -->
+    <div class="info-box flex">
         <div class="info-title"><span>Coding Quiz Challenge</span></div>
         <div class="info-content">
             <div class="info">
@@ -20,6 +33,22 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- start quiz button -->
+    <div class="start-btn flex"><button>Start Quiz!</button></div>
+
+    <!-- quiz box -->
+    <div class="quiz-container flex">
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+    </div>
+    <script src='./assets/js/script.js'></script>
 </body>
 </html>
