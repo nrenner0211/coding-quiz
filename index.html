@@ -14,19 +14,18 @@
 
     <header class="header-content flex">
         <div class="high-scores">View High Scores</div>
-        <!-- <div class="title">Coding Quiz Challenge</div> -->
         <div class="timer-wrap">
             <div class="time-left">Time Left:</div>
-            <div class="timer">
-                <div class="timer-sec">15</div>
+            <div id="timer">
+                <div class="timer-sec">75</div>
                 <div class="time-line"></div>
             </div>
         </div>    
     </header>
 
     <!-- info box -->
-    <div id="info-box" class="flex">
-        <div class="info-title"><span>Coding Quiz Challenge</span></div>
+    <div id="start-slide" class="flex">
+        <div class="info-title"><h2>Coding Quiz Challenge</h2></div>
         <div class="info-content">
             <div class="info">
                 Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
@@ -38,8 +37,8 @@
     </div>
 
     <!-- quiz box -->
-    <div id="quiz-container" class="flex">
-        <div class="question-container" class="hide">
+    <div id="quiz-slide" class="hide flex">
+        <div class="question-container">
             <div id="question">Question</div>
             <div id="answer-buttons" class="btn-grid">
                 <button class="btn">Answer 1</button>
@@ -49,6 +48,27 @@
             </div>
         </div>
     </div>
+
+    <!-- right/wrong "alert" -->
+    <div class="rw-slide flex">
+        <div class="correct-container hide"><h3>Correct!</h3></div> 
+        <div class="wrong-container hide"><h3>Wrong!</h3></div>
+    </div>
+
+    <!-- endgame page -->
+
+    <div id="endgame-slide" class="hide">
+        <div class="results">
+            <h2>All Done!</h2>
+            
+        </div>
+    </div>
+
+    <!-- highscores page -->
+    <div id="highscores-slide" class="hide">
+
+    </div>
+
     <script src='./assets/js/script.js'></script>
 </body>
 </html>

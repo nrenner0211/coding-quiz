@@ -4,6 +4,7 @@
     --fuchsia-crayola: #CB48B7;
     --russian-violet: #480355;
     --space-cadet: #313D5A;
+    --onyx: #B7B7B7;
 }
 
 *, *::before, *::after {
@@ -42,7 +43,7 @@ body {
     color: var(--fuchsia-crayola);
 }
 
-#info-box {
+#start-slide {
     padding: 20px;
     margin: 20px;
     flex-direction: column; 
@@ -71,8 +72,14 @@ body {
     display: none;
 }
 
-#quiz-container {
-    /* width: 800px; */
-    /* max-width: 80%; */
+.wrong-container {
+    color: var(--onyx);
+    border-top: solid 2px var(--onyx);
+    
 }
 
+.correct-container {
+    color: var(--onyx);
+    border-top: solid 2px var(--onyx);
+    
+}
