@@ -7,69 +7,122 @@ var startSlide = document.getElementById("start-slide");
 var quizSlide = document.getElementById("quiz-slide");
 var highScoresSlide = document.getElementById("highscores-slide");
 var endGameSlide = document.getElementById("endgame-slide");
-var answerButtonsEl = document.getElementById("answer-buttons");
-
-//timer
-var timeSec = document.querySelector(".timer-sec");
-var sec = 15;
-var time = setInterval(myTimer, 1000);
-
-function myTimer() {    
-    document.getElementById("timer").innerHTML = sec;
-    sec--;
-    if (sec == -1) {
-        clearInterval(time);
-        gameOver();
-    }
-};
+var answerButtonsEl = document.querySelector(".answerbtn");
+var questionEl = document.getElementById("question");
+var score = 0;
+var currentQuestion;
+var totalQuestions = 4;
 
 // questions array
 var questions = [
     {
         question: "Commonly used data types do NOT include:",
-        answers: {
-            a: "Boolean",
-            b: "Giraffe",
-            c: "String",
-            d: "Number"
-        },
-        correctAnswer: "b"
+        answers: ["Boolean", "Giraffe", "String", "Number"],
+        correctAnswer: ["wrong", "correct", "wrong", "wrong",]
     },
     {
         question: "How can you add a comment in a JavaScript?",
-        answers: {
-            a: "//comment",
-            b: "/*comment*/",
-            c: "<!--comment-->",
-            d: "~comment~!%$#~"
-        },
-        correctAnswer: "a"
+        answers: ["//comment", "/*comment*/", "<!--comment-->", "~comment~!%$#~"],
+        correctAnswer: ["correct", "wrong", "wrong", "wrong"]
     },
     {
         question: "Who invented Javascript?",
-        answers: {
-            a: "Andy Samberg",
-            b: "Dave Chappelle",
-            c: "Someone who shouldn't have",
-            d: "Brendan Eich"
-        },
-        correctAnswer: "d"
+        answers: ["Andy Samberg", "Dave Chappelle", "Someone who shouldn't have", "Brendan Eich"],
+        correctAnswer: ["wrong", "wrong", "wrong", "correct"]
     },
     {
         question: "Which is a common naming convention for compounded (joined) words in Javascript?",
-        answers: {
-            a: "froggyJump",
-            b: "stairCase",
-            c: "camelCase",
-            d: "camelToe"
-        },
-        correctAnswer: "c"
+        answers: ["froggyJump", "stairCase", "camelCase", "camelToe"],
+        correctAnswer: ["wrong", "wrong", "correct", "wrong"]
     }
 ];
 
+//timer
+var timeSec = document.querySelector(".timer-sec");
+var sec = 75;
+var time = setInterval(startTimer, 1000);
 
+//start timer function
+function startTimer() {
+    document.getElementById("timer").innerHTML = sec;
+    sec--;
+    if (sec == -1) {
+        clearInterval(time);
+        endGame();
+    }
+};
 
+//start quiz function
+function startQuiz() {
+    startSlide.classList.add("hide")
+    for(var i = 0; i < questions.length; i++) {
+        var thisItem = questions[i];
+        if (thisItem.answers == thisItem.correctAnswer) {
+            checkAnswer();
+        }
+    }
+    currentQuestion = 0
+    quizSlide.classList.remove("hide")
+    setNextQuestion()
+};
 
+function checkAnswer() {
+    var thisItem = questions[i];
+    if (thisItem.answers == thisItem.correctAnswer) {
+        correct()
+    } else {
+        notCorrect()
+    }
+};
+
+function correct() {
+    var correctContainer = document.querySelector(".correct-container")
+    correctContainer.classList.remove("hide")
+}
+
+function notCorrect() {
+    var wrongContainer = document.querySelector(".wrong-container")
+    wrongContainer.classList.remove("hide")
+}
+
+function resetState() {
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild
+        (answerButtonsEl.firstChild)
+    }
+};
+
+function setNextQuestion() {
+    resetState()
+    showQuestion(questions[currentQuestion++])
+};
+
+function showQuestion(currentQuestion) {
+    for(var i = 0; i < questions.length; i++) {
+        var thisItem = questions[i];
+    var button = document.createElement('button')
+    questionEl.innerText = currentQuestion.question
+    answerButtonsEl.innerText = thisItem.answers
+    answerButtonsEl.appendChild(button)  
+    }  
+};
+
+function clearStatusClass(element) {
+    element.classList.remove('answer')
+    element.classList.remove('question')
+};
+
+function endGame() {
+    endGameSlide.classList.remove('hide');
+    quizSlide.classList.add('hide')
+    startSlide.classList.add("hide")
+};
+
+startBtn.addEventListener("click", startQuiz);
+
+startBtn.addEventListener("click", startTimer);
+
+//pseudocode
 // when 'click' startbtn ---> timer starts, startslide addclass hide, quizslide remove class hide
 
 //when 'click' answer ---> check answer, loop?
@@ -89,14 +142,6 @@ var questions = [
 
 
 
-
-// function countDown() {
-//     time--;
-//     timeSec.innerHTML = time;
-//     if (counter === 0) {
-//         // endGame()
-//     }
-// }
 
 // startBtn.addEventListener('click', startGame, countDown);
 
@@ -159,38 +204,8 @@ var questions = [
 //     element.classList.remove('')
 // };
 
-// var questions = [
-//     {
-//         question: 'Commonly used data types do NOT include:',
-//         answers: [
-//             { text: 'Boolean', correct: false},
-//             { text: 'Giraffes', correct: true},
-//             { text: 'String', correct: false},
-//             { text: 'Number', correct: false},
-//         ]
-//     },
-//     {
-//         question: 'How can you add a comment in a JavaScript?',
-//         answers: [
-//             { text: '//comment', correct: true},
-//             { text: '/*comment*/', correct: false},
-//             { text: '<!--comment-->', correct: false},
-//             { text: '~?+~!~~!comment', correct: false},
-//         ]
-//     },
-// ];
 
 // // start timer event listener
 // startBtn.addEventListener("click", function (event) {
 // var time = 15;
-// var myInterval;
-
-//     // stops timer from starting with every click
-//     clearInterval(myInterval);
-
-//     // starts timer on click
-//     myInterval = setInterval(function () {
-//         time --;
-//         timer.innerHTML = time;
-//     }, 1000);
-// });
+// var myInte }
