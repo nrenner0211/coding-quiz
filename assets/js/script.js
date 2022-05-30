@@ -11,7 +11,7 @@ var answerButtonsEl = document.querySelector(".answerbtn");
 var questionEl = document.getElementById("question");
 var score = 0;
 var currentQuestion;
-var totalQuestions = 4;
+var totalQuestions = [""];
 
 // questions array
 var questions = [
@@ -101,9 +101,10 @@ function showQuestion(currentQuestion) {
     for(var i = 0; i < questions.length; i++) {
         var thisItem = questions[i];
     var button = document.createElement('button')
+    answerButtonsEl.appendChild(button)
+    button.classList.add('btn')
     questionEl.innerText = currentQuestion.question
-    answerButtonsEl.innerText = thisItem.answers
-    answerButtonsEl.appendChild(button)  
+    answerButtonsEl.innerText = thisItem.answers[i]; 
     }  
 };
 
