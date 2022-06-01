@@ -17,12 +17,13 @@
         <div class="timer-wrap">
             <div class="time-left">Time Left:</div>
             <div id="timer">
-                <div class="timer-sec">75</div>
+                <div class="timer-sec">0</div>
                 <div class="time-line"></div>
             </div>
         </div>    
     </header>
-
+    
+    <div id="container">
     <!-- info box -->
     <div id="start-slide" class="flex">
         <div class="info-title"><h2>Coding Quiz Challenge</h2></div>
@@ -31,7 +32,7 @@
                 Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
 
                 <!-- start quiz button -->
-                <div class="start-btn flex"><button class="btn">Start Quiz!</button></div>
+                <div class="start-btn flex"><button id="begin" class="btn">Start Quiz!</button></div>
             </div>
         </div>
     </div>
@@ -50,23 +51,28 @@
     </div>
 
     <!-- right/wrong "alert" -->
-    <div class="rw-slide flex">
-        <div class="correct-container hide"><h3>Correct!</h3></div> 
-        <div class="wrong-container hide"><h3>Wrong!</h3></div>
+    <div id="result">
+        <span id="right-or-wrong"></span>
     </div>
 
     <!-- endgame page -->
-
-    <div id="endgame-slide" class="hide">
-        <div class="results flex">
-            <h2>All Done!</h2>
-            
+    <div id="finish">
+        <h2>All Done!</h2>
+        <div>
+          <label for="initials">Initials: </label>
+          <input type="text" id="initials" />
+          <button type="submit" id="submit-high-score">Submit</button>
         </div>
-    </div>
-
-    <!-- highscores page -->
-    <div id="highscores-slide" class="hide">
-
+      </div>
+      <div class="high-scores-container">
+        <ol id="high-score-list">
+        </ol>
+        <div class="buttons">
+          <button class="btn" type="button" onclick="goBack()">Go Back</button>
+          <button class="btn" type="button" onclick="clearHighScores()">Clear High Scores</button>
+        </div>
+      </div>
+        
     </div>
 
     <script src='./assets/js/script.js'></script>

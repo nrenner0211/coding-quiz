@@ -72,14 +72,4 @@ body {
     display: none;
 }
 
-.wrong-container {
-    color: var(--onyx);
-    border-top: solid 2px var(--onyx);
-    
-}
 
-.correct-container {
-    color: var(--onyx);
-    border-top: solid 2px var(--onyx);
-    
-}
