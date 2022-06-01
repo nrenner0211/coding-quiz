@@ -5,35 +5,62 @@ console.dir(window.document);
 var startBtn = document.querySelector(".start-btn");
 var startSlide = document.getElementById("start-slide");
 var quizSlide = document.getElementById("quiz-slide");
-var highScoresSlide = document.getElementById("highscores-slide");
-var endGameSlide = document.getElementById("endgame-slide");
-var answerButtonsEl = document.querySelector(".answerbtn");
-var questionEl = document.getElementById("#answer-buttons");
-var score = 0;
-var currentQuestion = 0;
-var totalQuestions = [""];
+var highScoreContainer = document.querySelector(".high-scores-container");
+var endGameSlide = document.getElementById("finish");
+var answerButtonsEl = document.getElementById("answers");
+var questionEl = document.getElementById("question");
+var resultEl = document.getElementById("result");
+var rightOrWrong = document.querySelector('#right-or-wrong');
+var nameInput = document.querySelector('#name');
+
+//score local storage variables
+var localStorage = window.localStorage;
+var highScores = [];
+if (localStorage.getItem('highScores') !== null) {
+    highScores = JSON.parse(localStorage.getItem('highScores'));
+}
+
+// question variable
+var questionIndex = 0;
 
 // questions array
-var questions = [
+var quizQuestions = [
     {
         question: "Commonly used data types do NOT include:",
-        answers: ["Boolean", "Giraffe", "String", "Number"],
-        correctAnswer: ["wrong", "correct", "wrong", "wrong",]
+        choices: [
+            "Boolean", 
+            "Giraffe", 
+            "String", 
+            "Number"
+        ],
+        correct: "Giraffe"
     },
     {
         question: "How can you add a comment in a JavaScript?",
-        answers: ["//comment", "/*comment*/", "<!--comment-->", "~comment~!%$#~"],
-        correctAnswer: ["correct", "wrong", "wrong", "wrong"]
+        choices: ["//comment",
+            "/*comment*/",
+            "<!--comment-->", 
+            "~comment~!%$#~"
+        ],
+        correct: "//comment"
     },
     {
         question: "Who invented Javascript?",
-        answers: ["Andy Samberg", "Dave Chappelle", "Someone who shouldn't have", "Brendan Eich"],
-        correctAnswer: ["wrong", "wrong", "wrong", "correct"]
+        choices: ["Andy Samberg", 
+            "Dave Chappelle", 
+            "Someone who shouldn't have", 
+            "Brendan Eich"
+        ],
+        correct: "Brendan Eich"
     },
     {
         question: "Which is a common naming convention for compounded (joined) words in Javascript?",
-        answers: ["froggyJump", "stairCase", "camelCase", "camelToe"],
-        correctAnswer: ["wrong", "wrong", "correct", "wrong"]
+        choices: ["froggyJump", 
+            "stairCase", 
+            "camelCase", 
+            "camelToe"
+        ],
+        correct: "camelCase"
     }
 ];
 
@@ -53,18 +80,19 @@ function startTimer() {
 };
 
 //start quiz function
-function startQuiz() {
-    startSlide.classList.add("hide")
-    for(var i = 0; i < questions.length; i++) {
-        var thisItem = questions[i];
-        if (thisItem.answers == thisItem.correctAnswer) {
-            checkAnswer();
-        }
-    }
-    currentQuestion = 0
-    quizSlide.classList.remove("hide")
-    setNextQuestion()
+function startSlide() {
+    startSlide.style.display = "block";
+    quizSlide.style.display = "none";
+    endGameSlide.style.display = "none";
+    // resultEl.style.display = "none";
+    // highScoreContainer.style.display = "none";
 };
+
+function startQuiz() {
+    startSlide.style.display = "none";
+    quizSlide.style.display = "block";
+    endGameSlide.style.display = "none";
+}
 
 function checkAnswer() {
     var thisItem = questions[i];

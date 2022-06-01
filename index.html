@@ -22,12 +22,12 @@
             </div>
         </div>    
     </header>
-    
+
     <div id="container">
+
     <!-- info box -->
     <div id="start-slide" class="flex">
         <div class="info-title"><h2>Coding Quiz Challenge</h2></div>
-        <div class="info-content">
             <div class="info">
                 Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
 
@@ -38,15 +38,10 @@
     </div>
 
     <!-- quiz box -->
-    <div id="quiz-slide" class="hide flex">
+    <div id="quiz-slide" class="flex">
         <div class="question-container">
-            <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="answerbtn btn">Answer 1</button>
-                <button class="answerbtn btn">Answer 2</button>
-                <button class="answerbtn btn">Answer 3</button>
-                <button class="answerbtn btn">Answer 4</button>
-            </div>
+            <div id="question"></div>
+            <div id="answers" class="btn-grid"></div>
         </div>
     </div>
 
@@ -56,7 +51,7 @@
     </div>
 
     <!-- endgame page -->
-    <div id="finish">
+    <div id="finish" class="hide">
         <h2>All Done!</h2>
         <div>
           <label for="initials">Initials: </label>
@@ -67,7 +62,7 @@
       <div class="high-scores-container">
         <ol id="high-score-list">
         </ol>
-        <div class="buttons">
+        <div class="buttons hide">
           <button class="btn" type="button" onclick="goBack()">Go Back</button>
           <button class="btn" type="button" onclick="clearHighScores()">Clear High Scores</button>
         </div>
