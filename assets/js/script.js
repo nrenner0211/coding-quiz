@@ -5,13 +5,18 @@ console.dir(window.document);
 var startBtn = document.querySelector(".start-btn");
 var startSlide = document.getElementById("start-slide");
 var quizSlide = document.getElementById("quiz-slide");
+var viewScores = document.querySelector(".high-scores");
 var highScoreContainer = document.querySelector(".high-scores-container");
+var highScoreList = document.getElementById("high-score-list");
+var navButtons = document.querySelector(".buttons");
 var endGameSlide = document.getElementById("finish");
 var answerEl = document.getElementById("answers");
 var questionEl = document.getElementById("question");
 var resultEl = document.getElementById("result");
 var rightOrWrong = document.querySelector('#right-or-wrong');
 var nameInput = document.querySelector('#name');
+var timeLeft = 30;
+var score = "";
 
 //score local storage variables
 var localStorage = window.localStorage;
@@ -61,37 +66,47 @@ var quizQuestions = [
             "camelToe"
         ],
         correct: "camelCase"
+    },
+    {
+        question: "Which of the following is the correct syntax to redirect a url using JavaScript?",
+        choices: [
+            "document.location='http://www.newlocation.com';", "browser.location='http://www.newlocation.com';", "navigator.location='http://www.newlocation.com';", "window.location='http://www.newlocation.com';"
+        ],
+        correct: "window.location='http://www.newlocation.com';"
     }
 ];
 
-//start quiz function
-function startSlide() {
+//home screen
+function startScreen() {
     startSlide.style.display = "block";
     quizSlide.style.display = "none";
     endGameSlide.style.display = "none";
-    // resultEl.style.display = "none";
-    // highScoreContainer.style.display = "none";
+    navButtons.style.display = "none";
+    highScoreContainer.style.display = "none";
 };
 
 function startQuiz() {
-    startSlide.style.display = "none";
-    quizSlide.style.display = "block";
-    endGameSlide.style.display = "none";
-
     //timer
-    var timeSec = document.querySelector(".timer-sec");
-    var sec = 65;
     var time = setInterval(startTimer, 1000);
 
     //start timer function
     function startTimer() {
-        document.getElementById("timer").innerHTML = sec;
-        sec--;
-        if (sec == -1) {
+        document.getElementById("timer").innerHTML = timeLeft;
+        timeLeft--;
+
+        // if time runs out, endgame
+        if (timeLeft == -1) {
             clearInterval(time);
             endGame();
         }
     }
+
+    startSlide.style.display = "none";
+    quizSlide.style.display = "block";
+    endGameSlide.style.display = "none";
+    highScoreList.style.display = "none";
+    navButtons.style.diplay = "none";
+
     loadQuestion();
 };
 
@@ -102,7 +117,9 @@ function loadQuestion() {
     answerEl.innerHTML = ""; 
 
     var questionChoices = quizQuestions[questionIndex].choices
-    for (var i = 0; i < questionChoices.length; i++) {
+    var sortedChoices = questionChoices.sort().reverse();
+    console.log(sortedChoices);
+    for (var i in questionChoices) {
         var item = questionChoices[i];
         var answerBtn = document.createElement('button');
         answerBtn.textContent = item;
@@ -115,67 +132,93 @@ function loadQuestion() {
         answerEl.appendChild(answerBtn);
     }
 };
-
+// debugger;
 function checkAnswer(choice) {
     // check if correct
     var correctAnswer = quizQuestions[questionIndex].correct
     if (choice !== correctAnswer) {
         rightOrWrong.textContent = "*buzzerSound* WRONG!";
-        // subtract 10s from timer
-        sec = Math.max(secondsLeft - 10, 0);
+        timeLeft--;
     } else {
+        score++;
         rightOrWrong.textContent = "Correct!";
     }
     resultEl.style.display = "block";
+
+    setTimeout(function() {
+        resultEl.style.display = "none";
+
+        // if last question, endgame
+        if (questionIndex === quizQuestions.length - 1) {
+            endGame();
+        } else {
+            // otherwise load next question
+            questionIndex++;
+            loadQuestion();
+        }
+    }, 1000);
+};
+
+function endGame() {
+    // if time runs out, endgame
+    if (timeLeft =+ 1) {
+        clearInterval(timeLeft);
+    }
+
+    startSlide.style.display = "none";
+    quizSlide.style.display = "none";
+    endGameSlide.style.display = "block";
+    navButtons.style.display = "block";
+
+    var submitBtn = document.querySelector("#submit-high-score");
+    submitBtn.addEventListener("click", function () {
+        var initials = document.querySelector("#initials").value;
+        submitHighScore(initials, score + timeLeft);
+    })
+}
+
+function submitHighScore(initials, userScore) {
+    // creates an object of game values
+    var highScore = {
+        playerName: initials,
+        score: userScore
+    };
+
+    highScores.push(highScore);
+    //if more than one, it will sort scores
+    if (highScores.length > 1) {
+        highScores.sort(function (playerOne, playerTwo) {
+            return playerTwo.score - playerOne.score;
+        })
+    }
+    localStorage.setItem("highscores", JSON.stringify(highScores));
+    document.querySelector("#initials").value = "";
+    viewHighScores();
+};
+
+function viewHighScores() {
+    //hides other containers
+    quizSlide.style.display = "none";
+    startSlide.style.display = "none";
+    highScoreContainer.style.display = "block";
+
+    for (var i = 0; i < highScores.length; i++) {
+        var scoreElem = document.createElement("li");
+        var playerScore = highScores[i];
+        scoreElem.textContent = playerScore.playerName + " " + playerScore.score;
+        highScoreList.appendChild(scoreElem);
+    }
+};
+
+//loads the start screen again
+function goBack() {
+    startScreen()
 };
 
 startBtn.addEventListener("click", startQuiz);
 
-// function correct() {
-//     var correctContainer = document.querySelector(".correct-container")
-//     correctContainer.classList.remove("hide")
-// }
 
-// function notCorrect() {
-//     var wrongContainer = document.querySelector(".wrong-container")
-//     wrongContainer.classList.remove("hide")
-// }
-
-// function resetState() {
-//     while (answerButtonsEl.firstChild) {
-//         answerButtonsEl.removeChild
-//         (answerButtonsEl.firstChild)
-//     }
-// };
-
-// function setNextQuestion() {
-//     resetState()
-//     showQuestion(questionEl[currentQuestion])
-// };
-
-// function showQuestion(currentQuestion) {
-//     questionEl.innerText = currentQuestion.question
-//     for(var i = 0; i < questions.length; i++) {
-//         var thisItem = questions[i];
-//         var answers = thisItem.answers
-//     thisItem.answers.forEach(answers => {
-//         var button = document.createElement('button')
-//         button.innerText = answers.length
-//         button.classList.add('btn')
-//         answerButtonsEl.appendChild(button)
-//     })
-// }};
-
-// // function clearStatusClass(element) {
-// //     element.classList.remove('answer')
-// //     element.classList.remove('question')
-// // };
-
-// function endGame() {
-//     // endGameSlide.classList.remove('hide');
-//     // quizSlide.classList.add('hide')
-//     // startSlide.classList.add("hide")
-// };
+//--------------------------------------------------//
 
 //pseudocode
 // when 'click' startbtn ---> timer starts, startslide addclass hide, quizslide remove class hide
