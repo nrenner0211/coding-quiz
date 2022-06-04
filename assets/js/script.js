@@ -15,7 +15,8 @@ var questionEl = document.getElementById("question");
 var resultEl = document.getElementById("result");
 var rightOrWrong = document.querySelector('#right-or-wrong');
 var nameInput = document.querySelector('#name');
-var timeLeft = 30;
+var timeLeft = 50;
+var score = 0;
 
 //score local storage variables
 var localStorage = window.localStorage;
@@ -72,6 +73,11 @@ var quizQuestions = [
             "document.location='http://www.newlocation.com';", "browser.location='http://www.newlocation.com';", "navigator.location='http://www.newlocation.com';", "window.location='http://www.newlocation.com';"
         ],
         correct: "window.location='http://www.newlocation.com';"
+    },
+    {
+        question: "What does CSS mean?",
+        choices: ["Cascading Scissor Sheets", "Crazy Cool Stuff", "Cascading Style Sheets", "Cascading Style Shorts"],
+        correct: "Cascading Style Sheets"
     }
 ];
 
@@ -135,9 +141,9 @@ function checkAnswer(choice) {
     var correctAnswer = quizQuestions[questionIndex].correct
     if (choice !== correctAnswer) {
         rightOrWrong.textContent = "*buzzerSound* WRONG!";
-        timeLeft--;
+        timeLeft -= 10;
     } else {
-        timeLeft++;
+        score ++;
         rightOrWrong.textContent = "Correct!";
     }
     resultEl.style.display = "block";
@@ -170,15 +176,15 @@ function endGame() {
     var submitBtn = document.querySelector("#submit-high-score");
     submitBtn.addEventListener("click", function () {
         var initials = document.querySelector("#initials").value;
-        submitHighScore(initials, timeLeft);
+        submitHighScore(initials, score);
     })
 }
-debugger;
-function submitHighScore(initials, userScore) {
+
+function submitHighScore(initials, score) {
     // creates an object of game values
     var highScore = {
         playerName: initials,
-        score: userScore
+        score: score
     };
 
     highScores.push(highScore);
@@ -210,6 +216,7 @@ function viewHighScores() {
 //loads the start screen again
 function goBack() {
     startScreen()
+    resetTimer()
 };
 
 startBtn.addEventListener("click", startQuiz);
