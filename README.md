@@ -4,7 +4,7 @@ Challenge 4 (Coding Quiz)
 
 ## About This Project
 
-This one was tough! Still a work in progress. I can definitely say I'm more familiar with Javascript after this project!
+A seemingly simple coding quiz. When you click the start button, a question and answers pop up. If you answer wrong, seconds will be subtracted and will affect your final score. When you're done with the quiz, you can save and view your score!
 
 ## Deployed Link
 
@@ -12,7 +12,7 @@ This one was tough! Still a work in progress. I can definitely say I'm more fami
 
 ## Screenshot
 
-![A screenshot of the (kinda) working website](./assets/images/octo-eureka.png)
+![A screenshot of the working website](./assets/images/octo-eureka.png)
 
 ## Thanks for Reading
 
