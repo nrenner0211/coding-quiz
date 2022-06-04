@@ -5,7 +5,7 @@ console.dir(window.document);
 var startBtn = document.querySelector(".start-btn");
 var startSlide = document.getElementById("start-slide");
 var quizSlide = document.getElementById("quiz-slide");
-var viewScores = document.querySelector(".high-scores");
+var viewScoresBtn = document.querySelector(".high-scores");
 var highScoreContainer = document.querySelector(".high-scores-container");
 var highScoreList = document.getElementById("high-score-list");
 var navButtons = document.querySelector(".buttons");
@@ -16,7 +16,6 @@ var resultEl = document.getElementById("result");
 var rightOrWrong = document.querySelector('#right-or-wrong');
 var nameInput = document.querySelector('#name');
 var timeLeft = 30;
-var score = "";
 
 //score local storage variables
 var localStorage = window.localStorage;
@@ -104,7 +103,6 @@ function startQuiz() {
     startSlide.style.display = "none";
     quizSlide.style.display = "block";
     endGameSlide.style.display = "none";
-    highScoreList.style.display = "none";
     navButtons.style.diplay = "none";
 
     loadQuestion();
@@ -117,8 +115,7 @@ function loadQuestion() {
     answerEl.innerHTML = ""; 
 
     var questionChoices = quizQuestions[questionIndex].choices
-    var sortedChoices = questionChoices.sort().reverse();
-    console.log(sortedChoices);
+    var sortedChoices = questionChoices.sort();
     for (var i in questionChoices) {
         var item = questionChoices[i];
         var answerBtn = document.createElement('button');
@@ -140,7 +137,7 @@ function checkAnswer(choice) {
         rightOrWrong.textContent = "*buzzerSound* WRONG!";
         timeLeft--;
     } else {
-        score++;
+        timeLeft++;
         rightOrWrong.textContent = "Correct!";
     }
     resultEl.style.display = "block";
@@ -173,10 +170,10 @@ function endGame() {
     var submitBtn = document.querySelector("#submit-high-score");
     submitBtn.addEventListener("click", function () {
         var initials = document.querySelector("#initials").value;
-        submitHighScore(initials, score + timeLeft);
+        submitHighScore(initials, timeLeft);
     })
 }
-
+debugger;
 function submitHighScore(initials, userScore) {
     // creates an object of game values
     var highScore = {
@@ -191,7 +188,7 @@ function submitHighScore(initials, userScore) {
             return playerTwo.score - playerOne.score;
         })
     }
-    localStorage.setItem("highscores", JSON.stringify(highScores));
+    localStorage.setItem("highScores", JSON.stringify(highScores));
     document.querySelector("#initials").value = "";
     viewHighScores();
 };
@@ -216,6 +213,9 @@ function goBack() {
 };
 
 startBtn.addEventListener("click", startQuiz);
+
+viewScoresBtn.addEventListener("click", viewHighScores);
+
 
 
 //--------------------------------------------------//
