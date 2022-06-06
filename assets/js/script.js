@@ -15,7 +15,7 @@ var questionEl = document.getElementById("question");
 var resultEl = document.getElementById("result");
 var rightOrWrong = document.querySelector('#right-or-wrong');
 var nameInput = document.querySelector('#name');
-var timeLeft = 50;
+var timeLeft = 40;
 var score = 0;
 
 //score local storage variables
@@ -141,9 +141,9 @@ function checkAnswer(choice) {
     var correctAnswer = quizQuestions[questionIndex].correct
     if (choice !== correctAnswer) {
         rightOrWrong.textContent = "*buzzerSound* WRONG!";
-        timeLeft -= 10;
+        timeLeft = timeLeft - 10;
     } else {
-        score ++;
+        score = score + 5;
         rightOrWrong.textContent = "Correct!";
     }
     resultEl.style.display = "block";
@@ -213,10 +213,16 @@ function viewHighScores() {
     }
 };
 
+function resetQuiz() {
+    timeLeft = 40;
+    startBtn.addEventListener("click", startQuiz);
+    location.reload()
+};
+
 //loads the start screen again
 function goBack() {
     startScreen()
-    resetTimer()
+    resetQuiz()
 };
 
 startBtn.addEventListener("click", startQuiz);
