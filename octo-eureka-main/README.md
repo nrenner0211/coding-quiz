@@ -1,6 +1,6 @@
 # octo-eureka
 
-Challenge 4 (Coding Quiz)
+Coding Quiz
 
 ## About This Project
 
